@@ -5,6 +5,11 @@
 :root{
   --bg-start: #f8fafc;
   --bg-end: #eef2ff;
+  /* theme tokens for light mode */
+  --surface: #ffffff;
+  --muted: rgba(15,23,42,0.6);
+  --primary-500: #6366f1;
+  --card-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
 }
 
 @layer base {
@@ -22,9 +27,9 @@
   }
 
   .card {
-    background-color: theme('colors.surface.DEFAULT');
+    background-color: var(--surface);
     border-radius: 0.75rem;
-    box-shadow: theme('boxShadow.card');
+    box-shadow: var(--card-shadow);
     border: 1px solid rgba(15,23,42,0.04);
     transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
   }
@@ -87,12 +92,12 @@
 }
 
 .upload-zone:hover {
-  border-color: theme('colors.primary.500');
+  border-color: var(--primary-500);
   background-color: rgba(99,102,241,0.06);
 }
 
 .upload-zone.drag-active {
-  border-color: theme('colors.primary.500');
+  border-color: var(--primary-500);
   background-color: rgba(99,102,241,0.09);
 }
 

@@ -41,7 +41,7 @@ export default function CVICreation() {
   return (
     <div className="max-w-5xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">CVI Table Creator</h2>
-      <p className="text-gray-600 mb-6">Upload CVI Excel/CSV files to create standardized table</p>
+      <p className="text-gray-600 dark:text-gray-300 mb-6">Upload CVI Excel/CSV files to create standardized table</p>
 
       <div 
         className="upload-zone border-2 border-dashed rounded-lg p-8 text-center mb-4"
@@ -55,19 +55,19 @@ export default function CVICreation() {
           onChange={(e) => handleFileAdd(e.target.files)}
           className="hidden"
         />
-        <p className="text-gray-500">Click to upload or drag and drop</p>
-        <p className="text-xs text-gray-400 mt-1">Excel (.xlsx, .xls) or CSV files</p>
+  <p className="text-gray-500 dark:text-gray-400">Click to upload or drag and drop</p>
+  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Excel (.xlsx, .xls) or CSV files</p>
       </div>
 
       {files.length > 0 && (
-        <div className="bg-white border rounded mb-4">
-          <div className="px-4 py-2 border-b font-medium">Uploaded Files ({files.length})</div>
+        <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded mb-4">
+          <div className="px-4 py-2 border-b font-medium dark:border-gray-700">Uploaded Files ({files.length})</div>
           <div className="divide-y">
             {files.map((file, idx) => (
               <div key={idx} className="px-4 py-2 flex justify-between items-center">
                 <div>
-                  <div className="text-sm">{file.name}</div>
-                  <div className="text-xs text-gray-400">{(file.size / 1024).toFixed(1)} KB</div>
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{file.name}</div>
+                  <div className="text-xs text-gray-400 dark:text-gray-500">{(file.size / 1024).toFixed(1)} KB</div>
                 </div>
                 <button onClick={() => handleRemove(idx)} className="text-red-600 hover:text-red-800">Remove</button>
               </div>
