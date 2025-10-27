@@ -4,11 +4,12 @@ import DataPreview from '../common/DataPreview'
 import StatsCard from '../common/StatsCard'
 import { fillColumnsFromReference } from '../../utils/dataProcessors'
 import { readCSVFile, downloadCSV } from '../../utils/fileUtils'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 export default function Step3MatchFill({ initialData, onPrevious, onNext }) {
-  const [mainFile, setMainFile] = useState(null)
-  const [refFile, setRefFile] = useState(null)
-  const [result, setResult] = useState(null)
+  const [mainFile, setMainFile] = useLocalStorage('step3_mainFile', null)
+  const [refFile, setRefFile] = useLocalStorage('step3_refFile', null)
+  const [result, setResult] = useLocalStorage('step3_result', null)
   const [loading, setLoading] = useState(false)
 
   const handleMatch = async () => {

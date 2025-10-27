@@ -4,10 +4,11 @@ import DataPreview from '../common/DataPreview'
 import StatsCard from '../common/StatsCard'
 import { createTableFromJSONs } from '../../utils/dataProcessors'
 import { readJSONFile, downloadCSV } from '../../utils/fileUtils'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 export default function Step2CreateTable({ onPrevious, onNext }) {
-  const [files, setFiles] = useState({ igPosts: null, igFollowers: null, yt: null, tt: null })
-  const [result, setResult] = useState(null)
+  const [files, setFiles] = useLocalStorage('step2_files', { igPosts: null, igFollowers: null, yt: null, tt: null })
+  const [result, setResult] = useLocalStorage('step2_result', null)
   const [loading, setLoading] = useState(false)
 
   const handleGenerate = async () => {

@@ -4,10 +4,11 @@ import StatsCard from '../common/StatsCard'
 import { extractInstagramUsernames } from '../../utils/dataProcessors'
 import { readJSONFile } from '../../utils/fileUtils'
 import DownloadButton from '../common/DownloadButton'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 export default function Step1ExtractUsernames({ onNext }) {
-  const [file, setFile] = useState(null)
-  const [result, setResult] = useState(null)
+  const [file, setFile] = useLocalStorage('step1_file', null)
+  const [result, setResult] = useLocalStorage('step1_result', null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 

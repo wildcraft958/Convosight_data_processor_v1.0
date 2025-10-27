@@ -5,10 +5,11 @@ import { processCVIFiles } from '../../utils/cviProcessing'
 import { readCSVFile, readExcelFile } from '../../utils/fileUtils'
 import Papa from 'papaparse'
 import DownloadButton from '../common/DownloadButton'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 export default function CVICreation() {
-  const [files, setFiles] = useState([])
-  const [result, setResult] = useState(null)
+  const [files, setFiles] = useLocalStorage('cvi_files', [])
+  const [result, setResult] = useLocalStorage('cvi_result', null)
   const [loading, setLoading] = useState(false)
 
   const handleFileAdd = (fileList) => {

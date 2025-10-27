@@ -3,11 +3,11 @@ import logo from '../logo.webp'
 import DataCreation from './components/DataCreation/DataCreation'
 import CVICreation from './components/CVICreation/CVICreation'
 import Analysis from './components/Analysis/Analysis'
+import { useSession } from './context/SessionContext'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('data-creation')
-
-  // theme toggle logic lives in component below; keep App simple
+  const { handleNewSession } = useSession()
 
   const TabButton = ({ id, children }) => (
     <button
@@ -35,6 +35,13 @@ export default function App() {
           </div>
           <div className="flex items-center gap-4">
             <div className="text-sm text-gray-600 dark:text-gray-300">Ready</div>
+            <button
+              onClick={handleNewSession}
+              title="Clear all session data and start fresh"
+              className="px-3 py-1 text-sm bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200 rounded hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors"
+            >
+              New Session
+            </button>
             <ThemeToggle />
           </div>
         </div>

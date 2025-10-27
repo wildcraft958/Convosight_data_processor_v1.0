@@ -3,11 +3,12 @@ import FileUpload from '../common/FileUpload'
 import DataPreview from '../common/DataPreview'
 import { ensureFinalCategoryColumn, getDefaultKeywords } from '../../utils/categoryInference'
 import { readCSVFile, downloadCSV } from '../../utils/fileUtils'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 export default function Step4FillCategory({ initialData, onPrevious }) {
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useLocalStorage('step4_file', null)
   const [keywords, setKeywords] = useState(getDefaultKeywords())
-  const [result, setResult] = useState(null)
+  const [result, setResult] = useLocalStorage('step4_result', null)
 
   const handleFill = async () => {
     try {
