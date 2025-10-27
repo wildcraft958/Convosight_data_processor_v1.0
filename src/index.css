@@ -34,38 +34,50 @@
   }
 }
 
-/* dark theme overrides - applied when <html> has class 'dark' */
+/* dark theme overrides using a Vercel-like palette */
 @media (prefers-color-scheme: dark) {
   :root.dark {
-    --bg-start: #0b1220;
-    --bg-end: #071028;
+    --bg-start: #0a0a0a; /* near-black */
+    --bg-end: #050505;   /* deep black */
+    --surface: #0f1113;  /* panel surface */
+    --muted: #94a3b8;    /* muted text */
+    --accent: #7c3aed;   /* violet accent */
+    --text: #e6eef8;
   }
 }
 
 :root.dark body {
-  background: linear-gradient(180deg, #071028 0%, #071028 100%);
-  color: #e6eef8;
+  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  color: var(--text);
 }
 
 :root.dark .card {
-  background-color: #071028; /* deep surface */
+  background-color: var(--surface);
   border-color: rgba(255,255,255,0.04);
-  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  box-shadow: 0 6px 20px rgba(2,6,23,0.6);
 }
 
 :root.dark .muted {
-  color: rgba(230,238,248,0.7);
+  color: var(--muted);
 }
 
 :root.dark .upload-zone {
-  border-color: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.04);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
 }
 
 :root.dark .upload-zone.uploaded {
-  border-color: #10b981; /* keep green for success */
+  border-color: #10b981; /* green success */
   background: linear-gradient(180deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04));
   box-shadow: 0 6px 18px rgba(16,185,129,0.06);
+}
+
+/* accent usage example (buttons, active states) */
+@layer utilities {
+  .accent-verb {
+    background-color: var(--accent);
+    color: white;
+  }
 }
 
 .upload-zone {
