@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '../logo.webp'
 import DataCreation from './components/DataCreation/DataCreation'
 import CVICreation from './components/CVICreation/CVICreation'
@@ -6,6 +6,8 @@ import Analysis from './components/Analysis/Analysis'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('data-creation')
+
+  // theme toggle logic lives in component below; keep App simple
 
   const TabButton = ({ id, children }) => (
     <button
@@ -31,7 +33,10 @@ export default function App() {
               <div className="text-sm text-gray-500">Data Processor v1.0</div>
             </div>
           </div>
-          <div className="text-sm text-gray-600">Ready</div>
+          <div className="flex items-center gap-4">
+            <div className="text-sm text-gray-600">Ready</div>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
@@ -66,5 +71,51 @@ export default function App() {
         </main>
       </div>
     </div>
+  )
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem('theme')
+      if (saved) return saved
+    } catch (e) {}
+    // default to system preference
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (theme === 'dark') {
+      root.classList.add('dark')
+      try { localStorage.setItem('theme', 'dark') } catch (e) {}
+    } else {
+      root.classList.remove('dark')
+      try { localStorage.setItem('theme', 'light') } catch (e) {}
+    }
+  }, [theme])
+
+  const toggle = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle theme"
+      title="Toggle light / dark"
+      className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow focus:outline-none"
+    >
+      {theme === 'dark' ? (
+        // sun icon for dark (show sun to indicate switching to light)
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4V2M12 22v-2M4 12H2M22 12h-2M5 5l-1.5-1.5M20.5 20.5 19 19M5 19l-1.5 1.5M20.5 3.5 19 5" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="12" cy="12" r="3" stroke="#f59e0b" strokeWidth="1.5" />
+        </svg>
+      ) : (
+        // moon icon for light (show moon to indicate switching to dark)
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+    </button>
   )
 }

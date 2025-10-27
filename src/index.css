@@ -26,11 +26,46 @@
     border-radius: 0.75rem;
     box-shadow: theme('boxShadow.card');
     border: 1px solid rgba(15,23,42,0.04);
+    transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
   }
 
   .muted {
     color: rgba(15,23,42,0.6);
   }
+}
+
+/* dark theme overrides - applied when <html> has class 'dark' */
+@media (prefers-color-scheme: dark) {
+  :root.dark {
+    --bg-start: #0b1220;
+    --bg-end: #071028;
+  }
+}
+
+:root.dark body {
+  background: linear-gradient(180deg, #071028 0%, #071028 100%);
+  color: #e6eef8;
+}
+
+:root.dark .card {
+  background-color: #071028; /* deep surface */
+  border-color: rgba(255,255,255,0.04);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+}
+
+:root.dark .muted {
+  color: rgba(230,238,248,0.7);
+}
+
+:root.dark .upload-zone {
+  border-color: rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+:root.dark .upload-zone.uploaded {
+  border-color: #10b981; /* keep green for success */
+  background: linear-gradient(180deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04));
+  box-shadow: 0 6px 18px rgba(16,185,129,0.06);
 }
 
 .upload-zone {
