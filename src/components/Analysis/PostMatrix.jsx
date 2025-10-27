@@ -42,7 +42,7 @@ export default function PostMatrix() {
       </div>
 
       {files.length > 0 && (
-  <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded p-4 mb-4">
+        <div className="card p-4 mb-4">
           <div className="font-medium mb-2">Files ({files.length})</div>
           {files.map((f, idx) => <div key={idx} className="text-sm">{f.name}</div>)}
         </div>

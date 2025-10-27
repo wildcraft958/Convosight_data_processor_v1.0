@@ -60,7 +60,7 @@ export default function CVICreation() {
       </div>
 
       {files.length > 0 && (
-        <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded mb-4">
+        <div className="card mb-4">
           <div className="px-4 py-2 border-b font-medium dark:border-gray-700">Uploaded Files ({files.length})</div>
           <div className="divide-y">
             {files.map((file, idx) => (

@@ -17,7 +17,7 @@ export default function ProgressIndicator({ currentStep, totalSteps = 4 }) {
                     ? 'bg-green-500 text-white'
                     : isActive
                     ? 'bg-primary-500 text-white'
-                    : 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200'
+                      : 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200'
                 }`}
               >
                 {isComplete ? '✓' : stepNum}

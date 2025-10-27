@@ -65,7 +65,7 @@ export default function Step1ExtractUsernames({ onNext }) {
             <StatsCard label="Unique Usernames" value={result.uniqueUsernames} color="green" />
           </div>
 
-          <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded p-4 mb-4">
+          <div className="card p-4 mb-4">
             <h3 className="font-medium mb-2">Preview (first 20 usernames)</h3>
             <div className="max-h-48 overflow-y-auto">
               {result.usernames.slice(0, 20).map((username, idx) => (

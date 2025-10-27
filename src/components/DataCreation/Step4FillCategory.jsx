@@ -52,7 +52,7 @@ export default function Step4FillCategory({ initialData, onPrevious }) {
 
       {result && (
         <div className="mt-6">
-          <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded p-4 mb-4">
+          <div className="card p-4 mb-4">
             <h3 className="font-medium mb-2">Distribution by Final Category</h3>
             {Object.entries(categoryDist).map(([cat, count]) => (
               <div key={cat} className="flex justify-between py-1">

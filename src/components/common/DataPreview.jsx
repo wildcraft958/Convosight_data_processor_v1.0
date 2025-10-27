@@ -22,9 +22,9 @@ export default function DataPreview({ data, maxRows = 10 }) {
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-transparent divide-y divide-gray-100 dark:divide-gray-700">
+          <tbody className="bg-[var(--surface)] dark:bg-[var(--surface)] divide-y divide-gray-100 dark:divide-gray-700">
             {displayData.map((row, rowIdx) => (
-              <tr key={rowIdx} className={rowIdx % 2 === 0 ? 'bg-white dark:bg-transparent' : 'bg-gray-50 dark:bg-gray-800'}>
+              <tr key={rowIdx} className={rowIdx % 2 === 0 ? 'bg-[var(--surface)] dark:bg-[var(--surface)]' : 'bg-[rgba(15,23,42,0.03)] dark:bg-[rgba(255,255,255,0.02)]'}>
                 {headers.map((header, cellIdx) => (
                   <td key={cellIdx} className="px-4 py-2 text-sm text-gray-900 dark:text-gray-100 align-top">
                     {String(row[header] || '')}

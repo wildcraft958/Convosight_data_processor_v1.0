@@ -15,7 +15,7 @@ export default function App() {
       className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-150 ${
         activeTab === id
           ? 'bg-primary-500 text-white shadow'
-          : 'bg-white text-gray-700 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
+            : 'bg-[var(--surface)] text-gray-700 hover:bg-gray-50 dark:bg-[var(--surface)] dark:text-gray-200 dark:hover:bg-gray-700'
       }`}
     >
       {children}
@@ -102,7 +102,7 @@ function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle theme"
       title="Toggle light / dark"
-      className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow focus:outline-none"
+      className="inline-flex items-center justify-center w-9 h-9 rounded-md bg-[var(--surface)] dark:bg-[var(--surface)] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow focus:outline-none"
     >
       {theme === 'dark' ? (
         // sun icon for dark (show sun to indicate switching to light)
