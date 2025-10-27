@@ -22,7 +22,7 @@ export default function FileUpload({ label, accept, onFileSelect, selectedFile, 
         <div
           onDrop={handleDrop}
           onDragOver={handleDragOver}
-          className="upload-zone rounded-lg p-6 text-center cursor-pointer"
+          className={`upload-zone rounded-lg p-6 text-center cursor-pointer ${selectedFile ? 'uploaded' : ''}`}
           onClick={() => document.getElementById(`file-${safeId}`).click()}
         >
           <input
@@ -34,7 +34,7 @@ export default function FileUpload({ label, accept, onFileSelect, selectedFile, 
           />
           {selectedFile ? (
             <div>
-              <p className="text-sm text-gray-700">Selected: {selectedFile.name}</p>
+              <p className="text-sm font-medium">Selected: {selectedFile.name}</p>
               <p className="text-xs text-gray-400">{(selectedFile.size / 1024).toFixed(1)} KB</p>
             </div>
           ) : (

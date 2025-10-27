@@ -49,5 +49,16 @@
   background-color: rgba(99,102,241,0.09);
 }
 
+/* state when a file has been uploaded */
+.upload-zone.uploaded {
+  border-color: #10b981; /* green-500 */
+  background: linear-gradient(180deg, rgba(16,185,129,0.06), rgba(16,185,129,0.04));
+  box-shadow: 0 6px 18px rgba(16,185,129,0.06);
+}
+
+.upload-zone.uploaded p {
+  color: #065f46; /* green-800 */
+}
+
 /* small utility to make subtle dividers */
 .divider { height: 1px; background: rgba(15,23,42,0.04); }
