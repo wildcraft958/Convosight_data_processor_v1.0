@@ -28,15 +28,6 @@ export default function GenerateDataPoints() {
     const [newBrand, setNewBrand] = useState('')
     const [lastLoadedCount, setLastLoadedCount] = useState(0)
 
-    // Persist brands to localStorage whenever they change
-    useEffect(() => {
-        try {
-            localStorage.setItem('generateDataPointsBrands', JSON.stringify(brandsList))
-        } catch (err) {
-            console.warn('Failed to save brands to localStorage:', err)
-        }
-    }, [brandsList])
-
     const addBrand = (b) => {
         const name = String(b || '').trim()
         if (!name) return

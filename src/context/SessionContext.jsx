@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useCallback } from 'react'
+import React, { createContext, useContext, useCallback, useState, useEffect } from 'react'
 
 /**
  * Session context for managing global session state and reset
@@ -6,6 +6,18 @@ import React, { createContext, useContext, useCallback } from 'react'
 const SessionContext = createContext()
 
 export function SessionProvider({ children }) {
+  const [isSessionActive, setIsSessionActive] = useState(false)
+
+  // Check if there's any session data stored
+  useEffect(() => {
+    const sessionDataExists = () => {
+      const keysToIgnore = ['theme']
+      const allKeys = Object.keys(localStorage)
+      return allKeys.some(key => !keysToIgnore.includes(key))
+    }
+    setIsSessionActive(sessionDataExists())
+  }, [])
+
   const handleNewSession = useCallback(() => {
     // Clear all localStorage keys except theme
     const keysToKeep = ['theme']
@@ -21,12 +33,13 @@ export function SessionProvider({ children }) {
       }
     })
 
+    setIsSessionActive(false)
     // Force page refresh to reset all state
     window.location.reload()
   }, [])
 
   return (
-    <SessionContext.Provider value={{ handleNewSession }}>
+    <SessionContext.Provider value={{ handleNewSession, isSessionActive }}>
       {children}
     </SessionContext.Provider>
   )

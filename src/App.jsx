@@ -4,10 +4,13 @@ import DataCreation from './components/DataCreation/DataCreation'
 import CVICreation from './components/CVICreation/CVICreation'
 import Analysis from './components/Analysis/Analysis'
 import { useSession } from './context/SessionContext'
+import SessionIndicator from './components/common/SessionIndicator'
+import ConfirmModal from './components/common/ConfirmModal'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('data-creation')
-  const { handleNewSession } = useSession()
+  const { handleNewSession, isSessionActive } = useSession()
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
 
   const TabButton = ({ id, children }) => (
     <button
@@ -34,9 +37,13 @@ export default function App() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-600 dark:text-gray-300">Ready</div>
+            {isSessionActive ? (
+              <SessionIndicator isActive={isSessionActive} />
+            ) : (
+              <div className="text-sm text-gray-600 dark:text-gray-300">Ready</div>
+            )}
             <button
-              onClick={handleNewSession}
+              onClick={() => setShowConfirmModal(true)}
               title="Clear all session data and start fresh"
               className="px-3 py-1 text-sm bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200 rounded hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors"
             >
@@ -77,6 +84,17 @@ export default function App() {
           </div>
         </main>
       </div>
+
+      <ConfirmModal
+        isOpen={showConfirmModal}
+        title="Start New Session?"
+        message="All unsaved work and session data will be lost. Your theme preference will be preserved. Are you sure?"
+        confirmText="Yes, Start New Session"
+        cancelText="Cancel"
+        onConfirm={handleNewSession}
+        onCancel={() => setShowConfirmModal(false)}
+        isDangerous={true}
+      />
     </div>
   )
 }
