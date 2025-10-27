@@ -35,7 +35,7 @@ export default function Step1ExtractUsernames({ onNext }) {
   return (
     <div className="max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Step 1: Extract Instagram Usernames</h2>
-      <p className="text-gray-600 mb-6">Upload Instagram posts JSON to extract unique usernames</p>
+  <p className="text-gray-600 dark:text-gray-300 mb-6">Upload Instagram posts JSON to extract unique usernames</p>
 
       <FileUpload
         label="Instagram Posts JSON"
@@ -65,7 +65,7 @@ export default function Step1ExtractUsernames({ onNext }) {
             <StatsCard label="Unique Usernames" value={result.uniqueUsernames} color="green" />
           </div>
 
-          <div className="bg-white border rounded p-4 mb-4">
+          <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded p-4 mb-4">
             <h3 className="font-medium mb-2">Preview (first 20 usernames)</h3>
             <div className="max-h-48 overflow-y-auto">
               {result.usernames.slice(0, 20).map((username, idx) => (

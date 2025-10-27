@@ -25,16 +25,16 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <header className="bg-transparent pt-6 pb-4">
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
             <img src={logo} alt="Convosight" className="w-10 h-10 rounded-md object-cover shadow-sm" />
             <div>
-              <div className="text-2xl font-extrabold text-gray-900">Convosight</div>
-              <div className="text-sm text-gray-500">Data Processor v1.0</div>
+              <div className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">Convosight</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">Data Processor v1.0</div>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-600">Ready</div>
+            <div className="text-sm text-gray-600 dark:text-gray-300">Ready</div>
             <ThemeToggle />
           </div>
         </div>
@@ -43,12 +43,12 @@ export default function App() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="card p-4 mb-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 overflow-x-auto no-scrollbar">
               <TabButton id="data-creation">Data Creation</TabButton>
               <TabButton id="cvi-creation">CVI Creation</TabButton>
               <TabButton id="analysis">Analysis</TabButton>
             </div>
-            <div className="text-sm text-gray-500">Tip: Use drag & drop for uploads</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">Tip: Use drag & drop for uploads</div>
           </div>
         </div>
 
@@ -63,8 +63,8 @@ export default function App() {
             </div>
             <aside className="lg:col-span-4">
               <div className="card p-6">
-                <h3 className="text-lg font-semibold mb-2">Overview</h3>
-                <p className="text-sm text-gray-600">Quick actions, status and helpful hints appear here.</p>
+                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Overview</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">Quick actions, status and helpful hints appear here.</p>
               </div>
             </aside>
           </div>

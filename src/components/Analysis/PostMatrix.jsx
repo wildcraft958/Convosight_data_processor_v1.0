@@ -38,11 +38,11 @@ export default function PostMatrix() {
           onChange={(e) => setFiles([...files, ...Array.from(e.target.files)])}
           className="hidden"
         />
-        <p className="text-gray-500">Upload Final Data CSV files</p>
+  <p className="text-gray-500 dark:text-gray-400">Upload Final Data CSV files</p>
       </div>
 
       {files.length > 0 && (
-        <div className="bg-white border rounded p-4 mb-4">
+  <div className="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded p-4 mb-4">
           <div className="font-medium mb-2">Files ({files.length})</div>
           {files.map((f, idx) => <div key={idx} className="text-sm">{f.name}</div>)}
         </div>
