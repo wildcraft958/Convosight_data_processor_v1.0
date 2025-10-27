@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import logo from '../logo.webp'
 import DataCreation from './components/DataCreation/DataCreation'
 import CVICreation from './components/CVICreation/CVICreation'
 import Analysis from './components/Analysis/Analysis'
@@ -24,7 +25,7 @@ export default function App() {
       <header className="bg-transparent pt-6 pb-4">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <img src="/logo.webp" alt="Convosight" className="w-10 h-10 rounded-md object-cover shadow-sm" />
+            <img src={logo} alt="Convosight" className="w-10 h-10 rounded-md object-cover shadow-sm" />
             <div>
               <div className="text-2xl font-extrabold text-gray-900">Convosight</div>
               <div className="text-sm text-gray-500">Data Processor v1.0</div>
