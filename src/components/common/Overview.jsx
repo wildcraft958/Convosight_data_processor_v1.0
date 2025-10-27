@@ -51,104 +51,89 @@ export default function Overview({ activeTab }) {
   })
 
   return (
-    <aside className="lg:col-span-4 space-y-4">
-      {/* Current Guide */}
-      {currentGuide && (
-        <div className="card p-4">
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100 flex items-center gap-2">
-            <span className="text-2xl">{currentGuide.icon}</span>
-            {currentGuide.title} Guide
-          </h3>
-          <div className="space-y-2">
-            {currentGuide.steps.map((step, idx) => (
-              <div
-                key={idx}
-                onClick={() => setExpandedGuide(expandedGuide === idx ? -1 : idx)}
-                className="cursor-pointer p-3 rounded bg-[rgba(99,102,241,0.05)] dark:bg-[rgba(99,102,241,0.1)] hover:bg-[rgba(99,102,241,0.1)] dark:hover:bg-[rgba(99,102,241,0.15)] transition-colors border border-[rgba(99,102,241,0.2)]"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-2">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-500 text-white text-xs font-bold">
-                      {step.num}
-                    </div>
-                    <div>
-                      <div className="font-medium text-gray-900 dark:text-gray-100">{step.title}</div>
-                      {expandedGuide === idx && (
-                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{step.desc}</div>
-                      )}
+    <aside className="lg:col-span-4">
+      <div className="space-y-3 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent pr-2">
+        {/* Current Guide - Compact */}
+        {currentGuide && (
+          <div className="card p-3 bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900 dark:to-indigo-800 border border-indigo-200 dark:border-indigo-700">
+            <h3 className="text-sm font-bold text-indigo-900 dark:text-indigo-100 mb-2 flex items-center gap-2">
+              <span className="text-xl">{currentGuide.icon}</span>
+              {currentGuide.title}
+            </h3>
+            <div className="space-y-1">
+              {currentGuide.steps.map((step, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setExpandedGuide(expandedGuide === idx ? -1 : idx)}
+                  className="cursor-pointer p-2 rounded bg-white dark:bg-indigo-950 hover:shadow-sm transition-all text-xs"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-start gap-1.5 flex-1">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-indigo-500 text-white text-xs font-bold flex-shrink-0 mt-0.5">
+                        {step.num}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-gray-900 dark:text-gray-100">{step.title}</div>
+                        {expandedGuide === idx && (
+                          <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5 line-clamp-2">{step.desc}</div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  <span className={`text-gray-400 transition-transform ${expandedGuide === idx ? 'rotate-180' : ''}`}>
-                    ▼
-                  </span>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Tips & Tricks */}
-      <div className="card p-4">
-        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Tips & Tricks</h3>
-        <div className="space-y-2">
-          {tips.slice(0, 3).map((tip, idx) => (
-            <div key={idx} className="p-2 rounded bg-[rgba(34,197,94,0.05)] dark:bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.2)]">
-              <div className="flex gap-2">
-                <span className="text-lg flex-shrink-0">{tip.icon}</span>
-                <div className="text-xs">
-                  <div className="font-medium text-gray-900 dark:text-gray-100">{tip.title}</div>
-                  <div className="text-gray-600 dark:text-gray-400">{tip.desc}</div>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <details className="mt-3 text-xs">
-          <summary className="cursor-pointer font-medium text-primary-500 hover:text-primary-600 dark:text-primary-400">
-            Show more tips
-          </summary>
-          <div className="space-y-2 mt-2">
-            {tips.slice(3).map((tip, idx) => (
-              <div key={idx + 3} className="p-2 rounded bg-[rgba(34,197,94,0.05)] dark:bg-[rgba(34,197,94,0.1)] border border-[rgba(34,197,94,0.2)]">
-                <div className="flex gap-2">
-                  <span className="text-lg flex-shrink-0">{tip.icon}</span>
-                  <div>
-                    <div className="font-medium text-gray-900 dark:text-gray-100">{tip.title}</div>
-                    <div className="text-gray-600 dark:text-gray-400">{tip.desc}</div>
-                  </div>
-                </div>
+          </div>
+        )}
+
+        {/* Tips & Tricks - Compact Grid */}
+        <div className="card p-3 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900 dark:to-teal-900 border border-emerald-200 dark:border-emerald-700">
+          <h3 className="text-sm font-bold text-emerald-900 dark:text-emerald-100 mb-2">💡 Quick Tips</h3>
+          <div className="grid grid-cols-2 gap-1.5">
+            {tips.slice(0, 4).map((tip, idx) => (
+              <div key={idx} className="p-2 rounded bg-white dark:bg-emerald-950 text-xs hover:shadow-sm transition-all">
+                <div className="text-lg mb-1">{tip.icon}</div>
+                <div className="font-semibold text-gray-900 dark:text-gray-100 line-clamp-1">{tip.title}</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 line-clamp-1">{tip.desc.split(' ').slice(0, 3).join(' ')}...</div>
               </div>
             ))}
           </div>
-        </details>
-      </div>
+        </div>
 
-      {/* Quick Info */}
-      <div className="card p-4">
-        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">Quick Info</h3>
-        <div className="space-y-2 text-sm">
-          <div className="p-2 rounded bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700">
-            <div className="font-medium text-blue-900 dark:text-blue-100">File Formats</div>
-            <div className="text-xs text-blue-800 dark:text-blue-200">Supports JSON, CSV, and Excel (.xlsx, .xls)</div>
-          </div>
-          <div className="p-2 rounded bg-purple-50 dark:bg-purple-900 border border-purple-200 dark:border-purple-700">
-            <div className="font-medium text-purple-900 dark:text-purple-100">Auto-save</div>
-            <div className="text-xs text-purple-800 dark:text-purple-200">All form data is automatically saved locally</div>
-          </div>
-          <div className="p-2 rounded bg-amber-50 dark:bg-amber-900 border border-amber-200 dark:border-amber-700">
-            <div className="font-medium text-amber-900 dark:text-amber-100">Privacy</div>
-            <div className="text-xs text-amber-800 dark:text-amber-200">All processing happens in your browser</div>
+        {/* Quick Info - Compact */}
+        <div className="card p-3">
+          <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 mb-2">📋 Supported Formats</h3>
+          <div className="flex gap-1 flex-wrap text-xs">
+            <span className="px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100 font-medium">JSON</span>
+            <span className="px-2 py-1 rounded bg-green-100 dark:bg-green-900 text-green-900 dark:text-green-100 font-medium">CSV</span>
+            <span className="px-2 py-1 rounded bg-purple-100 dark:bg-purple-900 text-purple-900 dark:text-purple-100 font-medium">Excel</span>
           </div>
         </div>
-      </div>
 
-      {/* Version & Status */}
-      <div className="card p-4 text-center text-xs text-gray-600 dark:text-gray-400">
-        <div>Convosight Data Processor</div>
-        <div>v1.0</div>
-        <div className="mt-2 inline-block px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded">
-          ✓ Online
+        {/* Feature Highlights - Compact */}
+        <div className="card p-3 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900 dark:to-orange-900 border border-amber-200 dark:border-amber-700">
+          <div className="space-y-1 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
+              <span className="text-gray-700 dark:text-gray-300"><strong>Auto-save:</strong> Work is automatically saved</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
+              <span className="text-gray-700 dark:text-gray-300"><strong>Privacy:</strong> All processing in browser</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-green-600 dark:text-green-400 font-bold">✓</span>
+              <span className="text-gray-700 dark:text-gray-300"><strong>Fast:</strong> Handles large files</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Version & Status - Sticky Footer */}
+        <div className="card p-2 text-center text-xs text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700">
+          <div className="font-semibold text-gray-900 dark:text-gray-100">Convosight v1.0</div>
+          <div className="inline-block mt-1 px-2 py-0.5 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded text-xs font-medium">
+            🟢 Online
+          </div>
         </div>
       </div>
     </aside>
