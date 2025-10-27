@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import DataPreview from '../common/DataPreview'
 import StatsCard from '../common/StatsCard'
 import { processCVIFiles } from '../../utils/cviProcessing'
-import { readCSVFile, readExcelFile, downloadCSV } from '../../utils/fileUtils'
+import { readCSVFile, readExcelFile } from '../../utils/fileUtils'
+import Papa from 'papaparse'
+import DownloadButton from '../common/DownloadButton'
 
 export default function CVICreation() {
   const [files, setFiles] = useState([])
@@ -91,12 +93,14 @@ export default function CVICreation() {
             ))}
           </div>
           <DataPreview data={result.data.slice(0, 10)} maxRows={10} />
-          <button
-            onClick={() => downloadCSV(result.data, 'processed_social_media_data.csv')}
-            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 mt-4"
-          >
-            Download CSV
-          </button>
+          <div className="mt-4">
+            {/* Generate CSV string and use DownloadButton to download */}
+            <DownloadButton
+              filename="processed_social_media_data.csv"
+              content={Papa.unparse(result.data)}
+              mime={'text/csv;charset=utf-8;'}
+            />
+          </div>
         </div>
       )}
     </div>

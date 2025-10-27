@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import FileUpload from '../common/FileUpload'
 import StatsCard from '../common/StatsCard'
 import { extractInstagramUsernames } from '../../utils/dataProcessors'
-import { readJSONFile, downloadJSON } from '../../utils/fileUtils'
+import { readJSONFile } from '../../utils/fileUtils'
+import DownloadButton from '../common/DownloadButton'
 
 export default function Step1ExtractUsernames({ onNext }) {
   const [file, setFile] = useState(null)
@@ -74,12 +75,10 @@ export default function Step1ExtractUsernames({ onNext }) {
           </div>
 
           <div className="flex gap-4">
-            <button
-              onClick={handleDownload}
-              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-            >
-              Download JSON
-            </button>
+            <DownloadButton
+              filename="instagram_usernames_for_scraper.json"
+              content={{ usernames: result.usernames }}
+            />
             <button
               onClick={() => onNext(result)}
               className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
