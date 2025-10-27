@@ -3,6 +3,7 @@ import logo from '../logo.webp'
 import DataCreation from './components/DataCreation/DataCreation'
 import CVICreation from './components/CVICreation/CVICreation'
 import Analysis from './components/Analysis/Analysis'
+import Overview from './components/common/Overview'
 import { useSession } from './context/SessionContext'
 import SessionIndicator from './components/common/SessionIndicator'
 import ConfirmModal from './components/common/ConfirmModal'
@@ -75,12 +76,7 @@ export default function App() {
                 {activeTab === 'analysis' && <Analysis />}
               </div>
             </div>
-            <aside className="lg:col-span-4">
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Overview</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Quick actions, status and helpful hints appear here.</p>
-              </div>
-            </aside>
+            <Overview activeTab={activeTab} />
           </div>
         </main>
       </div>
