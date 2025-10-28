@@ -9,6 +9,8 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
   const [editingKeywordField, setEditingKeywordField] = useState({})
   const [showConfirm, setShowConfirm] = useState(false)
   const [confirmAction, setConfirmAction] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   // Expand/collapse keyword fields for editing
   const toggleKeywordEdit = (category) => {
@@ -21,11 +23,11 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
   // Add new category
   const handleAddCategory = () => {
     if (!newCategoryName.trim()) {
-      alert('Please enter a category name')
+      setErrorMessage('Please enter a category name')
       return
     }
     if (editingKeywords[newCategoryName]) {
-      alert('Category already exists')
+      setErrorMessage('Category already exists')
       return
     }
     setEditingKeywords(prev => ({
@@ -33,6 +35,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
       [newCategoryName]: []
     }))
     setNewCategoryName('')
+    setErrorMessage('')
   }
 
   // Remove category
@@ -89,7 +92,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
     if (onSave) {
       onSave(editingKeywords)
     }
-    alert('Categories and keywords saved successfully!')
+    onClose()
   }
 
   // Reset to defaults
@@ -103,7 +106,6 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
     setEditingKeywords(defaults)
     setKeywords(defaults)
     setShowConfirm(false)
-    alert('Reset to default keywords')
   }
 
   // Export as JSON
@@ -134,13 +136,16 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
           )
           if (isValid) {
             setEditingKeywords(imported)
-            alert('Keywords imported successfully!')
+            setSuccessMessage('Keywords imported successfully!')
+            setTimeout(() => setSuccessMessage(''), 3000) // Clear after 3 seconds
           } else {
-            alert('Invalid format. Expected: { "category": ["keyword1", "keyword2"] }')
+            setErrorMessage('Invalid format. Expected: { "category": ["keyword1", "keyword2"] }')
+            setTimeout(() => setErrorMessage(''), 5000) // Clear after 5 seconds
           }
         }
       } catch (err) {
-        alert('Error reading file: ' + err.message)
+        setErrorMessage('Error reading file: ' + err.message)
+        setTimeout(() => setErrorMessage(''), 5000)
       }
     }
     reader.readAsText(file)
@@ -165,20 +170,33 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
 
         <div className="p-6">
           {/* Add New Category Section */}
-          <div className="mb-8 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg border border-blue-200 dark:border-blue-700">
+          <div className="mb-8 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-700">
             <h3 className="font-semibold mb-3 text-gray-900 dark:text-white">Add New Category</h3>
+            {errorMessage && (
+              <div className="mb-3 p-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-sm">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="mb-3 p-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-sm">
+                {successMessage}
+              </div>
+            )}
             <div className="flex gap-2">
               <input
                 type="text"
                 value={newCategoryName}
-                onChange={(e) => setNewCategoryName(e.target.value)}
+                onChange={(e) => {
+                  setNewCategoryName(e.target.value)
+                  setErrorMessage('') // Clear error when user starts typing
+                }}
                 placeholder="Enter category name (e.g., 'Hair Care')"
-                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white"
+                className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 onKeyPress={(e) => e.key === 'Enter' && handleAddCategory()}
               />
               <button
                 onClick={handleAddCategory}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition"
               >
                 Add Category
               </button>
@@ -188,7 +206,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
           {/* Categories List */}
           <div className="space-y-4">
             {Object.entries(editingKeywords).map(([category, keywords]) => (
-              <div key={category} className="border border-gray-300 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-750">
+              <div key={category} className="border border-gray-300 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/50">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{category}</h4>
@@ -197,13 +215,13 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                   <div className="flex gap-2">
                     <button
                       onClick={() => toggleKeywordEdit(category)}
-                      className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+                      className="px-3 py-1 text-sm bg-gray-600 text-white rounded hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-500 transition"
                     >
                       {editingKeywordField[category] ? 'Done Editing' : 'Edit'}
                     </button>
                     <button
                       onClick={() => handleRemoveCategory(category)}
-                      className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition"
+                      className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 transition"
                     >
                       Delete
                     </button>
@@ -215,7 +233,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                   <div className="flex flex-wrap gap-2">
                     {keywords.length > 0 ? (
                       keywords.map((kw, idx) => (
-                        <span key={idx} className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-sm">
+                        <span key={idx} className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm border border-blue-200 dark:border-blue-700">
                           {kw}
                         </span>
                       ))
@@ -233,7 +251,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                         value={keywords.join('\n')}
                         onChange={(e) => handleUpdateKeywords(category, e.target.value)}
                         placeholder="Enter keywords one per line or comma-separated"
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white font-mono text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm placeholder-gray-500 dark:placeholder-gray-400"
                         rows="4"
                       />
                     </div>
@@ -246,12 +264,12 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                           {editingKeywords[category].map((kw, idx) => (
                             <div
                               key={idx}
-                              className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-sm flex items-center gap-2"
+                              className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm flex items-center gap-2 border border-blue-200 dark:border-blue-700"
                             >
                               {kw}
                               <button
                                 onClick={() => handleRemoveKeyword(category, idx)}
-                                className="ml-1 text-blue-600 dark:text-blue-300 hover:font-bold"
+                                className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 hover:font-bold"
                                 title="Remove keyword"
                               >
                                 ✕
@@ -272,11 +290,11 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
             <div className="flex gap-2">
               <button
                 onClick={handleExport}
-                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 transition"
               >
                 📥 Export as JSON
               </button>
-              <label className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition cursor-pointer">
+              <label className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 transition cursor-pointer">
                 📤 Import from JSON
                 <input
                   type="file"
@@ -290,13 +308,13 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
             <div className="flex gap-2">
               <button
                 onClick={handleResetDefaults}
-                className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition"
+                className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 dark:bg-orange-700 dark:hover:bg-orange-600 transition"
               >
                 ⟲ Reset to Defaults
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-semibold"
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 transition font-semibold"
               >
                 ✓ Save & Close
               </button>
@@ -308,7 +326,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
       {/* Confirmation Modal */}
       {showConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-sm w-full">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-sm w-full border border-gray-200 dark:border-gray-700">
             <h3 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
               {confirmAction?.type === 'resetDefaults' ? 'Reset to Defaults?' : 'Delete Category?'}
             </h3>
@@ -330,7 +348,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                     ? confirmResetDefaults
                     : confirmRemoveCategory
                 }
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 transition"
               >
                 Confirm
               </button>
