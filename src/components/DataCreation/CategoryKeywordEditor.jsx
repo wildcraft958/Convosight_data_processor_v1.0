@@ -153,24 +153,24 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto scrollbar-purple">
+        <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-purple-700 p-6 text-white">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">Category & Keyword Editor</h2>
             <button
               onClick={onClose}
-              className="text-white hover:bg-blue-700 rounded-full p-2 transition"
+              className="text-white hover:bg-purple-700 rounded-full p-2 transition"
               title="Close editor"
             >
               ✕
             </button>
           </div>
-          <p className="text-blue-100 mt-2">Create and manage custom keyword mappings for category inference</p>
+          <p className="text-purple-100 mt-2">Create and manage custom keyword mappings for category inference</p>
         </div>
 
         <div className="p-6">
           {/* Add New Category Section */}
-          <div className="mb-8 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-700">
+          <div className="mb-8 p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg border border-purple-200 dark:border-purple-700">
             <h3 className="font-semibold mb-3 text-gray-900 dark:text-white">Add New Category</h3>
             {errorMessage && (
               <div className="mb-3 p-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded text-sm">
@@ -196,7 +196,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
               />
               <button
                 onClick={handleAddCategory}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition"
+                className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-800 transition"
               >
                 Add Category
               </button>
@@ -233,7 +233,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                   <div className="flex flex-wrap gap-2">
                     {keywords.length > 0 ? (
                       keywords.map((kw, idx) => (
-                        <span key={idx} className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm border border-blue-200 dark:border-blue-700">
+                        <span key={idx} className="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm border border-purple-200 dark:border-purple-700">
                           {kw}
                         </span>
                       ))
@@ -264,12 +264,12 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
                           {editingKeywords[category].map((kw, idx) => (
                             <div
                               key={idx}
-                              className="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm flex items-center gap-2 border border-blue-200 dark:border-blue-700"
+                              className="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm flex items-center gap-2 border border-purple-200 dark:border-purple-700"
                             >
                               {kw}
                               <button
                                 onClick={() => handleRemoveKeyword(category, idx)}
-                                className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100 hover:font-bold"
+                                className="ml-1 text-purple-600 dark:text-purple-300 hover:text-purple-800 dark:hover:text-purple-100 hover:font-bold"
                                 title="Remove keyword"
                               >
                                 ✕
@@ -314,7 +314,7 @@ export default function CategoryKeywordEditor({ onSave, onClose }) {
               </button>
               <button
                 onClick={handleSave}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 transition font-semibold"
+                className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600 transition font-semibold"
               >
                 ✓ Save & Close
               </button>
