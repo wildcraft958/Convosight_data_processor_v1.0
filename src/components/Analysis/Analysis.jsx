@@ -7,7 +7,7 @@ export default function Analysis() {
   const [activeSection, setActiveSection] = useState('matrix')
 
   return (
-    <div>
+    <div className="pb-4">
       <div className="flex space-x-4 mb-6 overflow-x-auto">
         <button
           onClick={() => setActiveSection('matrix')}

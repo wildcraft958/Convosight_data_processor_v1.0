@@ -40,7 +40,7 @@ export default function CVICreation() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">CVI Table Creator</h2>
       <p className="text-gray-600 dark:text-gray-300 mb-6">Upload CVI Excel/CSV files to create standardized table</p>
 

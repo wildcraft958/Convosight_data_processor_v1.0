@@ -12,7 +12,7 @@ export default function DataCreation() {
   const [step3Data, setStep3Data] = useState(null)
 
   return (
-    <div>
+    <div className="pb-4">
       <ProgressIndicator currentStep={currentStep} totalSteps={4} />
 
       {currentStep === 1 && (

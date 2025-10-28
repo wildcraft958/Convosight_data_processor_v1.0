@@ -41,7 +41,7 @@ export default function Step4FillCategory({ initialData, onPrevious }) {
   }, {}) : {}
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">Step 4: Fill Final Category</h2>
 
       <FileUpload label="Table from Step 3 (CSV)" accept=".csv" onFileSelect={setFile} selectedFile={file} />

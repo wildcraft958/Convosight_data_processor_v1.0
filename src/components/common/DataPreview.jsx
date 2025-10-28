@@ -11,7 +11,7 @@ export default function DataPreview({ data, maxRows = 10 }) {
       <div className="bg-gray-50 dark:bg-transparent px-4 py-3 border-b dark:border-gray-700">
         <h3 className="font-medium text-gray-900 dark:text-gray-100">Preview (first {maxRows} rows)</h3>
       </div>
-      <div className="overflow-x-auto max-h-96">
+      <div className="overflow-x-auto max-h-[60vh]">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-100 dark:bg-gray-900 sticky top-0">
             <tr>

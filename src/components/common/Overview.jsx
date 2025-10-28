@@ -52,7 +52,7 @@ export default function Overview({ activeTab }) {
 
   return (
     <aside className="lg:col-span-4">
-      <div className="space-y-3 max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent pr-2">
+      <div className="space-y-3 max-h-[75vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent pr-2 pb-4">
         {/* Current Guide - Compact */}
         {currentGuide && (
           <div className="card p-3 bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900 dark:to-indigo-800 border border-indigo-200 dark:border-indigo-700">

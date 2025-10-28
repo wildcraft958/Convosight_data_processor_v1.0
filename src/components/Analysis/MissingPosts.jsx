@@ -22,7 +22,7 @@ export default function MissingPosts() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">Find Missing Posts</h2>
 
       <FileUpload label="Reference Table (CSV)" accept=".csv" onFileSelect={setRefFile} selectedFile={refFile} required />

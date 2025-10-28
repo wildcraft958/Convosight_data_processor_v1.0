@@ -29,7 +29,7 @@ export default function Step3MatchFill({ initialData, onPrevious, onNext }) {
   const coverage = result ? Math.round((result.stats.matchedUrls / result.stats.totalUrls) * 100) : 0
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">Step 3: Match & Fill from Reference</h2>
 
       <FileUpload label="Main Table (CSV)" accept=".csv" onFileSelect={setMainFile} selectedFile={mainFile} />

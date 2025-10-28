@@ -34,7 +34,7 @@ export default function Step2CreateTable({ onPrevious, onNext }) {
   }, {}) : {}
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">Step 2: Create Table from JSONs</h2>
 
       <div className="grid grid-cols-2 gap-4">

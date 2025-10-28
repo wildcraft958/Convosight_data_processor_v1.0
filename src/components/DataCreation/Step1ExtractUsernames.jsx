@@ -34,7 +34,7 @@ export default function Step1ExtractUsernames({ onNext }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">Step 1: Extract Instagram Usernames</h2>
   <p className="text-gray-600 dark:text-gray-300 mb-6">Upload Instagram posts JSON to extract unique usernames</p>
 

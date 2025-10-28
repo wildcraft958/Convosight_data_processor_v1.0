@@ -127,8 +127,8 @@ export default function GenerateDataPoints() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto">
-            <h2 className="text-2xl font-bold mb-4">Generate Data Points</h2>
+            <div className="max-w-6xl mx-auto pb-4">
+        <h2 className="text-2xl font-bold mb-4">Generate Data Points</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">Upload a Final Data CSV to generate a summary table with metrics for different brands across platforms and formats.</p>
 
             <FileUpload

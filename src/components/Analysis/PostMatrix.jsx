@@ -23,7 +23,7 @@ export default function PostMatrix() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-5xl mx-auto pb-4">
       <h2 className="text-2xl font-bold mb-4">Build Post Count Matrix</h2>
 
       <div 

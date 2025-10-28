@@ -27,7 +27,7 @@ export default function App() {
   )
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-8">
       <header className="bg-transparent pt-6 pb-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center space-x-3">
@@ -55,7 +55,7 @@ export default function App() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 pb-8">
         <div className="card p-4 mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4 overflow-x-auto no-scrollbar">
@@ -67,7 +67,7 @@ export default function App() {
           </div>
         </div>
 
-        <main>
+        <main className="pb-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-8">
               <div className="card p-6">
