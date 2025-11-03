@@ -34,7 +34,12 @@ export function createDataPointsSummary(data, brands) {
   const results = [];
 
   brands.forEach(brand => {
-    const brandData = data.filter(row => (row['Brand Name'] || '').trim() === brand);
+    // Normalize brand name for case-insensitive matching
+    const normalizedBrand = brand.toLowerCase().replace(/\s+/g, ' ').trim();
+    const brandData = data.filter(row => {
+      const rowBrand = (row['Brand Name'] || '').trim().toLowerCase().replace(/\s+/g, ' ').trim();
+      return rowBrand === normalizedBrand;
+    });
     if (brandData.length === 0) return;
 
     const totalPosts = brandData.length;

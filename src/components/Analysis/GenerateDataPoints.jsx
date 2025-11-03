@@ -59,26 +59,34 @@ export default function GenerateDataPoints() {
             const brandCol = keys.find(k => /brand/i.test(k)) || keys[0]
             const rawBrands = rows.map(r => (r[brandCol] || '').trim()).filter(Boolean)
             
-            // Normalize and deduplicate
+            // Normalize and deduplicate - use title case for consistency
             const normalizedMap = new Map()
             rawBrands.forEach(brand => {
-                const normalized = brand.toLowerCase().replace(/\s+/g, ' ')
+                const normalized = brand.toLowerCase().replace(/\s+/g, ' ').trim()
                 if (!normalizedMap.has(normalized)) {
-                    normalizedMap.set(normalized, brand)
+                    // Convert to title case for display
+                    const titleCase = brand.trim().split(/\s+/).map(word => 
+                        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                    ).join(' ')
+                    normalizedMap.set(normalized, titleCase)
                 }
             })
             
             const extracted = Array.from(normalizedMap.values())
             const newCount = extracted.length
             
-            // Check against existing brands (normalized)
-            const existingNormalized = new Set(brandsList.map(b => b.toLowerCase().replace(/\s+/g, ' ')))
-            const toAdd = extracted.filter(brand => !existingNormalized.has(brand.toLowerCase().replace(/\s+/g, ' ')))
+            // Remove default dummy brands if they still exist
+            const isDefaultBrand = (brand) => defaultBrands.includes(brand)
+            const currentNonDefault = brandsList.filter(b => !isDefaultBrand(b))
+            
+            // Check against existing non-default brands (normalized)
+            const existingNormalized = new Set(currentNonDefault.map(b => b.toLowerCase().replace(/\s+/g, ' ').trim()))
+            const toAdd = extracted.filter(brand => !existingNormalized.has(brand.toLowerCase().replace(/\s+/g, ' ').trim()))
             const duplicatesSkipped = extracted.length - toAdd.length
             
-            setBrandsList((s) => [...s, ...toAdd])
+            setBrandsList([...currentNonDefault, ...toAdd])
             setLastLoadedCount(newCount)
-            setSuccessMessage(`Loaded ${toAdd.length} brand(s) from CSV (${rawBrands.length} total, ${duplicatesSkipped} duplicates skipped)`)
+            setSuccessMessage(`Loaded ${toAdd.length} brand(s) from CSV (${rawBrands.length} total, ${duplicatesSkipped} duplicates skipped, default brands removed)`)
             setTimeout(() => setSuccessMessage(''), 5000)
         } catch (err) {
             setError('Failed to load brands from CSV')
@@ -94,25 +102,33 @@ export default function GenerateDataPoints() {
         const brandCol = keys.find(k => /brand/i.test(k)) || keys[0]
         const rawBrands = data.map(r => (r[brandCol] || '').trim()).filter(Boolean)
         
-        // Normalize and deduplicate
+        // Normalize and deduplicate - use title case for consistency
         const normalizedMap = new Map()
         rawBrands.forEach(brand => {
-            const normalized = brand.toLowerCase().replace(/\s+/g, ' ')
+            const normalized = brand.toLowerCase().replace(/\s+/g, ' ').trim()
             if (!normalizedMap.has(normalized)) {
-                normalizedMap.set(normalized, brand)
+                // Convert to title case for display
+                const titleCase = brand.trim().split(/\s+/).map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join(' ')
+                normalizedMap.set(normalized, titleCase)
             }
         })
         
         const extracted = Array.from(normalizedMap.values())
         
-        // Check against existing brands (normalized)
-        const existingNormalized = new Set(brandsList.map(b => b.toLowerCase().replace(/\s+/g, ' ')))
-        const toAdd = extracted.filter(brand => !existingNormalized.has(brand.toLowerCase().replace(/\s+/g, ' ')))
+        // Remove default dummy brands if they still exist
+        const isDefaultBrand = (brand) => defaultBrands.includes(brand)
+        const currentNonDefault = brandsList.filter(b => !isDefaultBrand(b))
+        
+        // Check against existing non-default brands (normalized)
+        const existingNormalized = new Set(currentNonDefault.map(b => b.toLowerCase().replace(/\s+/g, ' ').trim()))
+        const toAdd = extracted.filter(brand => !existingNormalized.has(brand.toLowerCase().replace(/\s+/g, ' ').trim()))
         const duplicatesSkipped = extracted.length - toAdd.length
         
-        setBrandsList((s) => [...s, ...toAdd])
+        setBrandsList([...currentNonDefault, ...toAdd])
         setLastLoadedCount(extracted.length)
-        setSuccessMessage(`Auto-detected ${toAdd.length} brand(s) from data (${rawBrands.length} total, ${duplicatesSkipped} duplicates skipped)`)
+        setSuccessMessage(`Auto-detected ${toAdd.length} brand(s) from data (${rawBrands.length} total, ${duplicatesSkipped} duplicates skipped, default brands removed)`)
         setTimeout(() => setSuccessMessage(''), 5000)
     }
 
