@@ -30,7 +30,8 @@ export default function Overview({ activeTab }) {
       steps: [
         { num: 1, title: 'Post Matrix', desc: 'Build a matrix of posts across regions and sources' },
         { num: 2, title: 'Missing Posts', desc: 'Identify posts that are missing from the data' },
-        { num: 3, title: 'Data Points', desc: 'Generate comprehensive metrics for each brand' }
+        { num: 3, title: 'Data Points', desc: 'Generate comprehensive metrics for each brand' },
+        { num: 4, title: 'URL Deduplication', desc: 'Remove duplicate rows based on URL matching from CSV' }
       ]
     }
   ]
