@@ -71,6 +71,7 @@ export function createDataPointsSummary(data, brands) {
     const tiktokMetrics = getPlatformMetrics('TikTok');
     const instagramMetrics = getPlatformMetrics('Instagram');
     const youtubeMetrics = getPlatformMetrics('YouTube');
+    const facebookMetrics = getPlatformMetrics('Facebook');
     
     // Instagram Branded vs Tagged
     const instagramData = brandData.filter(row => row.Source === 'Instagram');
@@ -84,6 +85,11 @@ export function createDataPointsSummary(data, brands) {
     // Instagram format specific
     const igImages = instagramData.filter(row => (row['Post Format'] || '').toLowerCase() === 'image');
     const igSidecars = instagramData.filter(row => (row['Post Format'] || '').toLowerCase() === 'sidecar');
+
+    // Facebook format specific
+    const facebookData = brandData.filter(row => row.Source === 'Facebook');
+    const fbImages = facebookData.filter(row => (row['Post Format'] || '').toLowerCase() === 'image');
+    const fbVideos = facebookData.filter(row => (row['Post Format'] || '').toLowerCase() === 'video');
 
     results.push({
       'Brand': brand, 
@@ -114,7 +120,14 @@ export function createDataPointsSummary(data, brands) {
       'Instagram Image Posts': igImages.length, 
       'Instagram Image ER': calculateAvgErForImagesSidecars(igImages),
       'Instagram Sidecar Posts': igSidecars.length, 
-      'Instagram Sidecar ER': calculateAvgErForImagesSidecars(igSidecars)
+      'Instagram Sidecar ER': calculateAvgErForImagesSidecars(igSidecars),
+      'Facebook Total Posts': facebookMetrics.posts,
+      'Facebook Followers': facebookMetrics.followers,
+      'Facebook Avg ER': facebookMetrics.avgEr,
+      'Facebook Image Posts': fbImages.length,
+      'Facebook Image ER': calculateAvgErForImagesSidecars(fbImages),
+      'Facebook Video Posts': fbVideos.length,
+      'Facebook Video ER': calculateAvgErForVideosShorts(fbVideos)
     });
   });
 

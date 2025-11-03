@@ -31,7 +31,10 @@ export default function GenerateDataPoints() {
     const addBrand = (b) => {
         const name = String(b || '').trim()
         if (!name) return
-        if (brandsList.includes(name)) return
+        // Normalize brand name for comparison (case-insensitive, remove extra spaces)
+        const normalized = name.toLowerCase().replace(/\s+/g, ' ')
+        const exists = brandsList.some(brand => brand.toLowerCase().replace(/\s+/g, ' ') === normalized)
+        if (exists) return
         setBrandsList((s) => [...s, name])
     }
 
@@ -54,14 +57,28 @@ export default function GenerateDataPoints() {
             // Try find a brand-like column
             const keys = Object.keys(rows[0])
             const brandCol = keys.find(k => /brand/i.test(k)) || keys[0]
-            const extracted = Array.from(new Set(rows.map(r => (r[brandCol] || '').trim()).filter(Boolean)))
-            const newCount = extracted.length
-            setBrandsList((s) => {
-                const updated = Array.from(new Set([...s, ...extracted]))
-                return updated
+            const rawBrands = rows.map(r => (r[brandCol] || '').trim()).filter(Boolean)
+            
+            // Normalize and deduplicate
+            const normalizedMap = new Map()
+            rawBrands.forEach(brand => {
+                const normalized = brand.toLowerCase().replace(/\s+/g, ' ')
+                if (!normalizedMap.has(normalized)) {
+                    normalizedMap.set(normalized, brand)
+                }
             })
+            
+            const extracted = Array.from(normalizedMap.values())
+            const newCount = extracted.length
+            
+            // Check against existing brands (normalized)
+            const existingNormalized = new Set(brandsList.map(b => b.toLowerCase().replace(/\s+/g, ' ')))
+            const toAdd = extracted.filter(brand => !existingNormalized.has(brand.toLowerCase().replace(/\s+/g, ' ')))
+            const duplicatesSkipped = extracted.length - toAdd.length
+            
+            setBrandsList((s) => [...s, ...toAdd])
             setLastLoadedCount(newCount)
-            setSuccessMessage(`Loaded ${newCount} brand(s) from CSV (${extracted.length} unique, ${extracted.filter(e => brandsList.includes(e)).length} duplicates skipped)`)
+            setSuccessMessage(`Loaded ${toAdd.length} brand(s) from CSV (${rawBrands.length} total, ${duplicatesSkipped} duplicates skipped)`)
             setTimeout(() => setSuccessMessage(''), 5000)
         } catch (err) {
             setError('Failed to load brands from CSV')
@@ -75,14 +92,27 @@ export default function GenerateDataPoints() {
         }
         const keys = Object.keys(data[0])
         const brandCol = keys.find(k => /brand/i.test(k)) || keys[0]
-        const extracted = Array.from(new Set(data.map(r => (r[brandCol] || '').trim()).filter(Boolean)))
-        const newCount = extracted.length
-        setBrandsList((s) => {
-            const updated = Array.from(new Set([...s, ...extracted]))
-            return updated
+        const rawBrands = data.map(r => (r[brandCol] || '').trim()).filter(Boolean)
+        
+        // Normalize and deduplicate
+        const normalizedMap = new Map()
+        rawBrands.forEach(brand => {
+            const normalized = brand.toLowerCase().replace(/\s+/g, ' ')
+            if (!normalizedMap.has(normalized)) {
+                normalizedMap.set(normalized, brand)
+            }
         })
-        setLastLoadedCount(newCount)
-        setSuccessMessage(`Auto-detected ${newCount} brand(s) from data (${extracted.length} unique)`)
+        
+        const extracted = Array.from(normalizedMap.values())
+        
+        // Check against existing brands (normalized)
+        const existingNormalized = new Set(brandsList.map(b => b.toLowerCase().replace(/\s+/g, ' ')))
+        const toAdd = extracted.filter(brand => !existingNormalized.has(brand.toLowerCase().replace(/\s+/g, ' ')))
+        const duplicatesSkipped = extracted.length - toAdd.length
+        
+        setBrandsList((s) => [...s, ...toAdd])
+        setLastLoadedCount(extracted.length)
+        setSuccessMessage(`Auto-detected ${toAdd.length} brand(s) from data (${rawBrands.length} total, ${duplicatesSkipped} duplicates skipped)`)
         setTimeout(() => setSuccessMessage(''), 5000)
     }
 
